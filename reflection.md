@@ -1,41 +1,23 @@
 # 💭 Reflection: Game Glitch Investigator
 
-Answer each question in 3 to 5 sentences. Be specific and honest about what actually happened while you worked. This is about your process, not trying to sound perfect.
-
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+When I first ran the game, it launched but had several obvious problems. The hints were backwards — when I guessed too high, it told me to go higher instead of lower. The score and game status did not reset when clicking "New Game", so the game kept saying "You already won" even in a fresh game. Additionally, the secret number was being randomly converted to a string on even-numbered attempts, which caused comparisons to break silently.
 
 ---
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+I used Claude as my AI assistant throughout this project. One correct suggestion was fixing the `check_guess` function to return "Too High" with "Go LOWER!" — I verified this by running pytest and all 3 tests passed. One misleading aspect was that the starter code already had a `check_guess` function in `app.py` with the same name as one in `logic_utils.py`, which caused confusion about which one was actually being called — I had to carefully trace the imports to understand which file mattered.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+I decided a bug was fixed when both the automated pytest tests passed AND the live game behaved correctly in the browser. For example, I ran `py -m pytest` after fixing the inverted hints and confirmed all 3 tests passed. I also manually tested by entering a guess higher than the secret number and verifying the hint now correctly said "Go LOWER!". Claude helped me understand that `check_guess` returns a tuple, so tests needed to check `result[0]` instead of just `result`.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-
----
-
-## 5. Looking ahead: your developer habits
-
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+Streamlit reruns the entire Python script from top to bottom every single time a user clicks a button or interacts with the app. T
