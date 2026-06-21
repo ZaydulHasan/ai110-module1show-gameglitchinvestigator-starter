@@ -1,54 +1,37 @@
 # 🎮 Game Glitch Investigator: The Impossible Guesser
 
 ## 🚨 The Situation
-
-You asked an AI to build a simple "Number Guessing Game" using Streamlit.
-It wrote the code, ran away, and now the game is unplayable. 
-
-- You can't win.
-- The hints lie to you.
-- The secret number seems to have commitment issues.
+An AI built a number guessing game using Streamlit. It was full of bugs:
+hints lied, the secret kept changing, Hard mode was easier than Normal,
+and the logic file was full of placeholder crashes.
 
 ## 🛠️ Setup
-
 1. Install dependencies: `pip install -r requirements.txt`
-2. Run the broken app: `python -m streamlit run app.py`
-
-## 🕵️‍♂️ Your Mission
-
-1. **Play the game.** Open the "Developer Debug Info" tab in the app to see the secret number. Try to win.
-2. **Find the State Bug.** Why does the secret number change every time you click "Submit"? Ask ChatGPT: *"How do I keep a variable from resetting in Streamlit when I click a button?"*
-3. **Fix the Logic.** The hints ("Higher/Lower") are wrong. Fix them.
-4. **Refactor & Test.** - Move the logic into `logic_utils.py`.
-   - Run `pytest` in your terminal.
-   - Keep fixing until all tests pass!
+2. Run the fixed app: `python -m streamlit run app.py`
 
 ## 📝 Document Your Experience
+This is a Streamlit number-guessing game. The player picks a difficulty,
+then guesses a secret number within a limited number of attempts. The game
+gives correct High/Low hints and tracks a score.
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+Bugs found and fixed:
+- Bug 1: Hints were backwards — "Go HIGHER!" shown when guess was too high
+- Bug 2: Secret number reset on every interaction — game was unwinnable
+- Bug 3: Hard mode had range 1–50, easier than Normal's 1–100, fixed to 1–200
+- Bug 4: logic_utils.py had only NotImplementedError stubs — real logic moved in
 
 ## 📸 Demo Walkthrough
-
-Describe your fixed game in numbered steps so a reader can follow along without watching a video:
-
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
-
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+1. User selects Normal difficulty (range 1–100, 8 attempts)
+2. Secret number is generated (e.g., 8) and stays fixed the whole game
+3. User enters 50 and clicks Submit — game shows "📉 Go LOWER!" (correct!)
+4. User enters 3 — game shows "📈 Go HIGHER!" (correct!)
+5. User enters 8 — game shows "🎉 Correct! You guessed it!" — win screen appears
+6. Score updates and Guess History shows all previous guesses
+7. User clicks Play Again to start a fresh round
 
 ## 🧪 Test Results
-
-```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
-```
+pytest tests/
+========================= 12 passed in 0.04s =========================
 
 ## 🚀 Stretch Features
-
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+No stretch features completed for this submission.
